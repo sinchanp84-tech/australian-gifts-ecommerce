@@ -1,17 +1,20 @@
 const express = require("express");
 console.log(__filename);
 const cors = require("cors");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 const Razorpay = require("razorpay");
 
 const razorpay = new Razorpay({
-  key_id: "rzp_test_T5SJCDeUfxnFR8",
-  key_secret: "sapmzlXnQSY27kt2r88cDQ5g",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 const Product = require("./models/Product");
@@ -19,9 +22,6 @@ const User = require("./models/User");
 const Order = require("./models/Order");
 const auth = require("./middleware/auth");
 const admin = require("./middleware/admin");
-
-dotenv.config();
-
 const app = express();
 
 app.use(cors());
@@ -277,7 +277,7 @@ app.post("/api/login", async (req, res) => {
         id: user._id,
         role: user.role,
       },
-      "secretkey123",
+      process.env.JWT_SECRET,
       {
         expiresIn: "7d",
       }

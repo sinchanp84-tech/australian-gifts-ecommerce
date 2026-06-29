@@ -48,7 +48,7 @@ const response = await fetch(
       const order = await response.json();
 
       const options = {
-        key: "rzp_test_T5SJCDeUfxnFR8",
+        key: "rzp_test_T75lhfsu4eK5YS",
 
         amount: order.amount,
         currency: order.currency,
